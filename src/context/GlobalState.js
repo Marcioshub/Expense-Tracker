@@ -19,6 +19,7 @@ function savedTransactions() {
       tmp.push(trans);
     }
 
+    // return saved transactions
     return tmp;
   }
 }
