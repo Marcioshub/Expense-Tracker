@@ -17,6 +17,10 @@ export default function AddTransaction() {
     };
 
     addTransaction(newTransaction);
+
+    // clear text and amount
+    setText("");
+    setAmount(0);
   }
 
   return (
