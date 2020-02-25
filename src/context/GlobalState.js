@@ -1,9 +1,31 @@
 import React, { createContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
 
+function savedTransactions() {
+  const savedTrans = Object.entries(localStorage);
+
+  if (savedTrans === null || savedTrans === [] || savedTrans === undefined) {
+    return []; // no saved transactions on local storage
+  } else {
+    var tmp = [];
+
+    for (var i = 0; i < savedTrans.length; i++) {
+      const trans = {
+        id: Math.floor(Math.random() * 100000000),
+        text: savedTrans[i][0],
+        amount: +savedTrans[i][1]
+      };
+
+      tmp.push(trans);
+    }
+
+    return tmp;
+  }
+}
+
 // initial state
 const initialState = {
-  transactions: []
+  transactions: savedTransactions()
 };
 
 // Create context
@@ -14,10 +36,10 @@ export default function GlobalState({ children }) {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   // actions
-  function deleteTransaction(id) {
+  function deleteTransaction(transaction) {
     dispatch({
       type: "DELETE_TRANSACTION",
-      payload: id
+      payload: transaction
     });
   }
 
